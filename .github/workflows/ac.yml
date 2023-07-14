@@ -14,22 +14,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # 파이썬 버전 설정
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
+      # 파이썬 버전 출력
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
 
+      # 출력 결과를 파일로 저장
       - name: Save output to artifact
         run: |
           python -c "import sys; print(sys.version)" > artifact_${{ matrix.python-version }}.txt
 
+      # 아티팩트 업로드
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
+          # 아티팩트 이름 설정
           name: python-version-artifacts
+          # 업로드할 파일 경로 설정
           path: |
             artifact_3.8.txt
             artifact_3.9.txt
