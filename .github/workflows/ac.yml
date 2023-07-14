@@ -22,12 +22,15 @@ jobs:
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
 
-      - name: Save output to artifact.txt
+      - name: Save output to artifact
         run: |
-          python -c "import sys; print(sys.version)" > artifact.txt
+          python -c "import sys; print(sys.version)" > artifact_${{ matrix.python-version }}.txt
 
-      - name: Upload artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: python-version-artifact
-          path: artifact.txt
+          name: python-version-artifacts
+          path: |
+            artifact_3.8.txt
+            artifact_3.9.txt
+            artifact_3.10.txt
