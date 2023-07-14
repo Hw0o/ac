@@ -23,5 +23,4 @@ jobs:
         with:
           name: python-outputs
           path: |
-            path/to/output/file1.txt
-            path/to/output/file2.txt
+            /home/ftsa6tm/ac/artifact.txt
