@@ -11,27 +11,23 @@ jobs:
         python-version: ["3.8", "3.9", "3.10"]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Set up Python and save output
-        id: python-version
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Save output to artifact.txt
         run: |
-          if [[ ${{ matrix.python-version }} == "3.8" ]]; then
-            python3.8 -c "import sys; print(sys.version)" > artifact_3.8.txt
-            echo "::set-output name=python_output::artifact_3.8.txt"
-          elif [[ ${{ matrix.python-version }} == "3.9" ]]; then
-            python3.9 -c "import sys; print(sys.version)" > artifact_3.9.txt
-            echo "::set-output name=python_output::artifact_3.9.txt"
-          elif [[ ${{ matrix.python-version }} == "3.10" ]]; then
-            python3.10 -c "import sys; print(sys.version)" > artifact_3.10.txt
-            echo "::set-output name=python_output::artifact_3.10.txt"
-          fi
+          python -c "import sys; print(sys.version)" > artifact.txt
 
-      - name: Upload Python artifacts
+      - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: python-outputs
-          path: |
-            artifact_3.8.txt
-            artifact_3.9.txt
-            artifact_3.10.txt
+          name: python-version-artifact
+          path: artifact.txt
