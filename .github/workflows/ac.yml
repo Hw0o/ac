@@ -31,6 +31,6 @@ jobs:
         with:
           name: python-version-artifacts
           path: |
-            artifact_3.8.txt
-            artifact_3.9.txt
-            artifact_3.10.txt
+            version_3.8.txt
+            version_3.9.txt
+            version_3.10.txt
